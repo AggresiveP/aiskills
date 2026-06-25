@@ -1,0 +1,14 @@
+{
+  "name": "aiskills-verification",
+  "version": "1.0.0",
+  "description": "Automated verification and completion walkthrough for AI Skills levels",
+  "main": "scripts/inspect_homepage.js",
+  "scripts": {
+    "start": "node scripts/inspect_homepage.js",
+    "submit:level1": "node scripts/upload_correct_screenshot.js",
+    "submit:tools": "node scripts/generate_pdf_and_submit.js"
+  },
+  "dependencies": {
+    "puppeteer": "^25.1.0"
+  }
+}
