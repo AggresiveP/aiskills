@@ -85,7 +85,7 @@ sequenceDiagram
     autonumber
     actor Tester as Puppeteer
     participant FE as Frontend Client
-    participant BE as Backend API (/api/user/progress)
+    participant BE as "Backend API (/api/user/progress)"
     participant AI as AI Screen Analyzer
 
     Tester->>FE: Upload chatbot mockup screenshot
