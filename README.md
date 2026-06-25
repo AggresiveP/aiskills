@@ -199,9 +199,9 @@ During testing of the training site, most of the core business logic (like basel
 
 ## 🖼️ Verification Proof
 
-| 🏆 Final Dashboard (`665/665 XP`) | 📜 Level Certificates |
+| 🏆 Practice Dashboard (All Levels Complete) | 📜 Level Certificates |
 | :---: | :---: |
-| ![Homepage Dashboard](./screenshots/homepage_current.png) | ![Certificates List](./screenshots/certificates_page_current.png) |
+| ![Practice Dashboard](./screenshots/practice_status_final.png) | ![Certificates List](./screenshots/certificates_page_current.png) |
 
 | 📊 Gamma Submission Verified | 📓 NotebookLM Submission Verified |
 | :---: | :---: |
