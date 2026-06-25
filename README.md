@@ -81,18 +81,36 @@ function setReactValue(el, value) {
 <summary><b>📡 Next.js API Synchronization flow</b></summary>
 
 ```mermaid
-sequenceDiagram
-    autonumber
-    actor Tester as Puppeteer
-    participant FE as Frontend Client
-    participant BE as "Backend API (/api/user/progress)"
-    participant AI as AI Screen Analyzer
+flowchart TD
+    classDef client fill:#89b4fa,stroke:#11111b,color:#11111b,stroke-width:2px;
+    classDef server fill:#cba6f7,stroke:#11111b,color:#11111b,stroke-width:2px;
+    classDef database fill:#a6e3a1,stroke:#11111b,color:#11111b,stroke-width:2px;
+    classDef error fill:#f38ba8,stroke:#11111b,color:#11111b,stroke-width:2px;
 
-    Tester->>FE: Upload chatbot mockup screenshot
-    FE->>AI: POST /api/analyze-screenshot
-    AI-->>FE: JSON { verified: true }
-    FE->>BE: POST /api/user/progress (screenshotUploaded: true, xp: 200)
-    BE-->>FE: HTTP 200 OK
+    subgraph FE [💻 Frontend Client]
+        A[📸 User Uploads Screenshot]:::client
+        E[🔄 React State Updates<br/>screenshotUploaded = true]:::client
+        F[📡 useServerSync Hook Detects Change]:::client
+        D[❌ Display Verification Error]:::error
+    end
+
+    subgraph BE [⚡ Backend API Services]
+        B(🔍 POST /api/analyze-screenshot):::server
+        C{Is Chatbot Screen Valid?}:::server
+        G(💾 POST /api/user/progress):::server
+    end
+
+    subgraph DB [🗄️ Database Store]
+        H[(User Progress Updated<br/>Level 1 XP = 200)]:::database
+    end
+
+    A --> B
+    B --> C
+    C -- Yes --> E
+    C -- No --> D
+    E --> F
+    F --> G
+    G --> H
 ```
 </details>
 
