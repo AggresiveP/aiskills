@@ -175,6 +175,28 @@ To fetch this, open Chrome **DevTools (F12)** -> **Application** -> **Cookies** 
 
 ---
 
+## 🐛 Notable Bugs & Quirks Identified
+
+During testing of the training site, most of the core business logic (like baseline calculation, level progression tracking, and automated grading) worked correctly, but we found 4 notable bugs and design quirks:
+
+### 1. Silent Form Validation Blocks (UX Bug)
+* **The Issue**: On the Gamma and NotebookLM task pages, if you upload a file with an unaccepted format (like a `.png` for Gamma instead of `.pdf`), the form submission blocks silently.
+* **Why it's bugged**: The site does not show any red error message or text explanation. The "Submit exercise" button simply stops responding when clicked, leaving the user with no idea what went wrong unless they open the browser Console or inspect the HTML.
+
+### 2. Locked Screenshot Step (UX / Progress Bug)
+* **The Issue**: In Level 1, Step 3, the screenshot upload is optional. However, if a user skips it and completes the level, the step is locked as "Complete".
+* **Why it's bugged**: The UI replaces the "Submit" button with a "Continue" button, making it impossible to upload a screenshot later to claim the missing 15 XP through the interface. The user is permanently stuck at `185/200 XP` for Level 1 unless they reset all level progress or manually send raw API requests (which we did).
+
+### 3. React State Sync Binding (Automation / Autofill Bug)
+* **The Issue**: The form fields use strict React binding hooks without standard fallback behaviors.
+* **Why it's bugged**: If a user uses a browser password manager, auto-fill extension, or simple automation tool to paste answers into the textareas, the site fails to recognize the input. Clicking submit results in "Please fill out this field" errors because the native DOM events are intercepted.
+
+### 4. Basic Certificate "Download" (Minor Limitation)
+* **The Issue**: The "Download certificate" button on the `/certificates` page relies on a simple browser print-to-PDF directive (`window.print()`).
+* **Why it's bugged**: Rather than downloading a clean, dedicated PDF image, it prints the browser viewport layout. If the page viewport size is not standard, the printed certificate can sometimes look misaligned.
+
+---
+
 ## 🖼️ Verification Proof
 
 | 🏆 Final Dashboard (`665/665 XP`) | 📜 Level Certificates |
