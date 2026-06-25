@@ -115,6 +115,33 @@ flowchart TD
 </details>
 
 <details>
+<summary><b>🔄 Levels 2 & 3 Completion Flow</b></summary>
+
+```mermaid
+flowchart TD
+    classDef client fill:#89b4fa,stroke:#11111b,color:#11111b,stroke-width:2px;
+    classDef server fill:#cba6f7,stroke:#11111b,color:#11111b,stroke-width:2px;
+    classDef database fill:#a6e3a1,stroke:#11111b,color:#11111b,stroke-width:2px;
+
+    subgraph L2 [Level 2: Practice Completion]
+        direction TB
+        L2Start[💻 Go to /level2]:::client --> L2Fill[📝 Fill 3 Job Exercises]:::client
+        L2Fill --> L2Sub(⚡ POST /api/tool-task-submissions):::server
+        L2Sub --> L2Check{Are all 3 Verified?}:::server
+        L2Check -- Yes --> L2Complete[📡 POST /api/user/progress<br/>level2Complete = true]:::server
+        L2Complete --> L2DB[(🗄️ Database Updated<br/>Level 2 XP = 265)]:::database
+    end
+
+    subgraph L3 [Level 3: Mastery Completion]
+        direction TB
+        L3Start[💻 Go to /level3]:::client --> L3Fill[📝 Build Prompt + System Prompt Template]:::client
+        L3Fill --> L3Save(📡 POST /api/user/progress<br/>level3Complete = true):::server
+        L3Save --> L3DB[(🗄️ Database Updated<br/>Level 3 XP = 200)]:::database
+    end
+```
+</details>
+
+<details>
 <summary><b>🔍 Local Debugging (Non-Headless)</b></summary>
 
 To watch automation running in real-time with DevTools open:
